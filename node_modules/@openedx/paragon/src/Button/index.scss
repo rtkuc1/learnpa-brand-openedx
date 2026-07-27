@@ -1,0 +1,385 @@
+@import "mixins";
+@import "button-group";
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--pgn-typography-btn-font-family);
+  font-weight: var(--pgn-typography-btn-font-weight);
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: var(--pgn-size-btn-border-width) solid var(--pgn-btn-border-color, transparent);
+  color: var(--pgn-btn-color, var(--pgn-color-body-base));
+  background-color: var(--pgn-btn-bg, transparent);
+  transition: var(--pgn-transition-btn);
+
+  @include button-size(
+    var(--pgn-spacing-btn-padding-y-base),
+    var(--pgn-spacing-btn-padding-x-base),
+    var(--pgn-typography-btn-font-size-base),
+    var(--pgn-typography-btn-line-height-base),
+    var(--pgn-size-btn-border-radius-base)
+  );
+
+  &:not(:disabled, .disabled, .btn-link) {
+    &.focus,
+    &:focus {
+      position: relative;
+      outline: 0;
+      box-shadow: none;
+      background: var(--pgn-btn-focus-bg, transparent);
+      border-color: var(--pgn-btn-focus-border-color, transparent);
+      color: var(--pgn-btn-focus-color, var(--pgn-color-body-base));
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: calc(var(--pgn-spacing-btn-focus-distance-to-border) * -1);
+        right: calc(var(--pgn-spacing-btn-focus-distance-to-border) * -1);
+        bottom: calc(var(--pgn-spacing-btn-focus-distance-to-border) * -1);
+        left: calc(var(--pgn-spacing-btn-focus-distance-to-border) * -1);
+        border: solid var(--pgn-size-btn-focus-width) var(--pgn-btn-focus-outline-color, var(--pgn-color-body-base));
+        border-radius: var(--pgn-size-btn-focus-border-radius-base);
+      }
+
+      &.btn-lg::before {
+        border-radius: var(--pgn-size-btn-focus-border-radius-lg);
+      }
+
+      &.btn-sm::before {
+        border-radius: var(--pgn-size-btn-focus-border-radius-sm);
+      }
+
+      &:active,
+      &.active {
+        &::before {
+          opacity: .75;
+        }
+      }
+
+      &:disabled,
+      &.disabled {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    &:hover {
+      color: var(--pgn-btn-hover-color, var(--pgn-color-body-base));
+      background-color: var(--pgn-btn-hover-bg, transparent);
+      border-color: var(--pgn-btn-hover-border-color, transparent);
+      text-decoration: none;
+    }
+
+    &:active,
+    &.active,
+    .show > &.dropdown-toggle {
+      color: var(--pgn-btn-active-color, inherit);
+      background-color: var(--pgn-btn-active-bg, inherit);
+      border-color: var(--pgn-btn-active-border-color, transparent);
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    color: var(--pgn-btn-disabled-color, inherit);
+    background-color: var(--pgn-btn-disabled-bg, inherit);
+    border-color: var(--pgn-btn-disabled-border-color, transparent);
+    opacity: var(--pgn-other-btn-disabled-opacity);
+  }
+
+  .btn-icon-before {
+    margin-inline-end: .5rem;
+    margin-left: -.25em;
+
+    [dir="rtl"] & {
+      margin-right: -.25em;
+      margin-left: .5rem;
+    }
+  }
+
+  .btn-icon-after {
+    margin-inline-start: .5rem;
+    margin-right: -.25em;
+
+    [dir="rtl"] & {
+      margin-right: .5rem;
+      margin-left: -.25em;
+    }
+  }
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+  pointer-events: none;
+}
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: var(--pgn-typography-font-weight-normal);
+  color: var(--pgn-color-link-base);
+  text-decoration: var(--pgn-typography-link-decoration-base);
+
+  &:hover {
+    color: var(--pgn-color-link-hover);
+    text-decoration: var(--pgn-typography-link-decoration-hover);
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: var(--pgn-typography-link-decoration-hover);
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: var(--pgn-color-btn-disabled-link);
+    pointer-events: none;
+  }
+}
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size(
+    var(--pgn-spacing-btn-padding-y-lg),
+    var(--pgn-spacing-btn-padding-x-lg),
+    var(--pgn-typography-btn-font-size-lg),
+    var(--pgn-typography-btn-line-height-lg),
+    var(--pgn-size-btn-border-radius-lg)
+  );
+}
+
+.btn-sm {
+  @include button-size(
+    var(--pgn-spacing-btn-padding-y-sm),
+    var(--pgn-spacing-btn-padding-x-sm),
+    var(--pgn-typography-btn-font-size-sm),
+    var(--pgn-typography-btn-line-height-sm),
+    var(--pgn-size-btn-border-radius-sm)
+  );
+}
+
+//
+// Block button
+//
+
+.btn-block {
+  display: flex;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+    margin-top: var(--pgn-spacing-btn-block-spacing-y);
+  }
+}
+
+.btn-inline {
+  line-height: calc(var(--pgn-typography-line-height-base) * 1em - 2 * var(--pgn-size-btn-border-width));
+  font-size: inherit;
+  vertical-align: bottom;
+  padding: 0 .25em;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}
+
+[dir="rtl"] .btn-group > .btn:not(:last-child, .dropdown-toggle),
+[dir="rtl"] .btn-group > .btn-group:not(:last-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[dir="rtl"] .btn-group > .btn:not(:first-child),
+[dir="rtl"] .btn-group > .btn-group:not(:first-child) > .btn {
+  border-radius: var(--pgn-size-btn-border-radius-base) 0 0 var(--pgn-size-btn-border-radius-base);
+}
+
+[dir="rtl"] .btn-group > .btn:first-child,
+[dir="rtl"] .btn-group > .btn-group:first-child > .btn {
+  border-top-right-radius: var(--pgn-size-btn-border-radius-base);
+  border-bottom-right-radius: var(--pgn-size-btn-border-radius-base);
+}
+
+// PRIMARY BUTTONS
+.btn-primary {
+  @include button-variant('primary');
+}
+
+.btn-outline-primary {
+  @include button-variant('outline-primary');
+}
+
+.btn-inverse-primary {
+  @include button-variant('inverse-primary');
+}
+
+.btn-inverse-outline-primary {
+  @include button-variant('inverse-outline-primary');
+}
+
+
+// SECONDARY BUTTONS
+.btn-secondary {
+  @include button-variant('secondary');
+}
+
+.btn-outline-secondary {
+  @include button-variant('outline-secondary');
+}
+
+.btn-inverse-secondary {
+  @include button-variant('inverse-secondary');
+}
+
+.btn-inverse-outline-secondary {
+  @include button-variant('inverse-outline-secondary');
+}
+
+// BRAND BUTTONS
+.btn-brand {
+  @include button-variant('brand');
+}
+
+.btn-outline-brand {
+  @include button-variant('outline-brand');
+}
+
+.btn-inverse-brand {
+  @include button-variant('inverse-brand');
+}
+
+.btn-inverse-outline-brand {
+  @include button-variant('inverse-outline-brand');
+}
+
+
+// DANGER BUTTONS
+.btn-danger {
+  @include button-variant('danger');
+}
+
+.btn-outline-danger {
+  @include button-variant('outline-danger');
+}
+
+.btn-inverse-danger {
+  @include button-variant('inverse-danger')
+}
+
+.btn-inverse-outline-danger {
+  @include button-variant('inverse-outline-danger')
+}
+
+// DARK BUTTONS
+.btn-dark {
+  @include button-variant('dark');
+}
+
+.btn-outline-dark {
+  @include button-variant('outline-dark');
+}
+
+.btn-inverse-dark {
+  @include button-variant('inverse-dark');
+}
+
+.btn-inverse-outline-dark {
+  @include button-variant('inverse-outline-dark');
+}
+
+
+// INFO BUTTONS
+.btn-info {
+  @include button-variant('info')
+}
+
+.btn-outline-info {
+  @include button-variant('outline-info');
+}
+
+.btn-inverse-info {
+  @include button-variant('inverse-info');
+}
+
+.btn-inverse-outline-info {
+  @include button-variant('inverse-outline-info');
+}
+
+
+// LIGHT BUTTONS
+.btn-light {
+  @include button-variant('light');
+}
+
+.btn-outline-light {
+  @include button-variant('outline-light');
+}
+
+.btn-inverse-light {
+  @include button-variant('inverse-light');
+}
+
+.btn-inverse-outline-light {
+  @include button-variant('inverse-outline-light');
+}
+
+// SUCCESS BUTTONS
+.btn-success {
+  @include button-variant('success');
+}
+
+.btn-outline-success {
+  @include button-variant('outline-success');
+}
+
+.btn-inverse-success {
+  @include button-variant('inverse-success');
+}
+
+.btn-inverse-outline-success {
+  @include button-variant('inverse-outline-success');
+}
+
+
+// WARNING BUTTONS
+.btn-warning {
+  @include button-variant('warning');
+}
+
+.btn-outline-warning {
+  @include button-variant('outline-warning');
+}
+
+.btn-inverse-warning {
+  @include button-variant('inverse-warning');
+}
+
+.btn-inverse-outline-warning {
+  @include button-variant('inverse-outline-warning');
+}
+
+// TERTIARY BUTTONS
+.btn-tertiary {
+  @include button-variant('tertiary');
+}
+
+.btn-inverse-tertiary {
+  @include button-variant('inverse-tertiary');
+}

@@ -1,0 +1,81 @@
+import React, { useRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import Form, { FormLabel } from '../../Form';
+import Badge from '../../Badge';
+import Stack from '../../Stack';
+import { newId } from '../../utils';
+function CheckboxFilter({
+  column: {
+    filterValue,
+    setFilter,
+    Header,
+    filterChoices,
+    getHeaderProps
+  }
+}) {
+  // creates a unique label that does not change on re-render in case there are multiple checkbox filters in the dom
+  const ariaLabel = useRef(newId(`checkbox-filter-label-${getHeaderProps().key}-`));
+  const checkedBoxes = filterValue || [];
+  const changeCheckbox = value => {
+    if (checkedBoxes.includes(value)) {
+      const newCheckedBoxes = checkedBoxes.filter(val => val !== value);
+      return setFilter(newCheckedBoxes);
+    }
+    checkedBoxes.push(value);
+    return setFilter(checkedBoxes);
+  };
+  const headerBasedId = useMemo(() => `checkbox-filter-check-${getHeaderProps().key}-`, [getHeaderProps]);
+  return /*#__PURE__*/React.createElement(Form.Group, {
+    role: "group",
+    "aria-labelledby": ariaLabel.current
+  }, /*#__PURE__*/React.createElement(FormLabel, {
+    id: ariaLabel.current,
+    className: "pgn__checkbox-filter-label"
+  }, Header), /*#__PURE__*/React.createElement(Form.CheckboxSet, {
+    name: Header,
+    value: checkedBoxes
+  }, filterChoices.map(({
+    name,
+    number,
+    value
+  }) => /*#__PURE__*/React.createElement(Form.Checkbox, {
+    key: `${headerBasedId}${name}`,
+    value: value,
+    checked: checkedBoxes.includes(value),
+    onChange: () => changeCheckbox(value),
+    "aria-label": name
+  }, /*#__PURE__*/React.createElement(Stack, {
+    direction: "horizontal",
+    gap: 2
+  }, name, " ", number !== undefined && /*#__PURE__*/React.createElement(Badge, {
+    variant: "light"
+  }, number))))));
+}
+CheckboxFilter.propTypes = {
+  /**
+   * Specifies a column object.
+   *
+   * `setFilter`: Function to set the filter value.
+   *
+   * `Header`: Column header used for labels and placeholders.
+   *
+   * `filterChoices`: Specifies array of choices.
+   *
+   * `getHeaderProps`: Generates a key unique to the column being filtered.
+   *
+   * `filterValue`: Value for the filter input.
+   */
+  column: PropTypes.shape({
+    setFilter: PropTypes.func.isRequired,
+    Header: PropTypes.oneOfType([PropTypes.elementType, PropTypes.node]).isRequired,
+    filterChoices: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      number: PropTypes.number
+    })).isRequired,
+    getHeaderProps: PropTypes.func.isRequired,
+    filterValue: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
+};
+export default CheckboxFilter;
+//# sourceMappingURL=CheckboxFilter.js.map

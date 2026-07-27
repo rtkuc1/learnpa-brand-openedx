@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","names":["OVERFLOW_SCROLL_ITEM_CLASS"],"sources":["../../../src/OverflowScroll/data/constants.ts"],"sourcesContent":["export const OVERFLOW_SCROLL_ITEM_CLASS = 'pgn__overflow-scroll-item';\n"],"mappings":"AAAA,OAAO,MAAMA,0BAA0B,GAAG,2BAA2B","ignoreList":[]}

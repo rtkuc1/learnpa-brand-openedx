@@ -1,0 +1,44 @@
+.pgn__avatar {
+  border-radius: var(--pgn-size-avatar-border-radius);
+  border: solid var(--pgn-size-avatar-border-base) var(--pgn-color-avatar-border);
+  display: inline-block;
+  height: var(--pgn-size-avatar-base);
+  overflow: hidden;
+  width: var(--pgn-size-avatar-base);
+  object-fit: cover;
+
+  &.pgn__avatar-xs {
+    height: var(--pgn-size-avatar-xs);
+    width: var(--pgn-size-avatar-xs);
+  }
+
+  &.pgn__avatar-sm {
+    height: var(--pgn-size-avatar-sm);
+    width: var(--pgn-size-avatar-sm);
+  }
+
+  &.pgn__avatar-md {
+    height: var(--pgn-size-avatar-base);
+    width: var(--pgn-size-avatar-base);
+  }
+
+  &.pgn__avatar-lg {
+    height: var(--pgn-size-avatar-lg);
+    width: var(--pgn-size-avatar-lg);
+  }
+
+  &.pgn__avatar-xl {
+    height: var(--pgn-size-avatar-xl);
+    width: var(--pgn-size-avatar-xl);
+  }
+
+  &.pgn__avatar-xxl {
+    height: var(--pgn-size-avatar-xxl);
+    width: var(--pgn-size-avatar-xxl);
+  }
+
+  &.pgn__avatar-huge {
+    height: var(--pgn-size-avatar-huge);
+    width: var(--pgn-size-avatar-huge);
+  }
+}

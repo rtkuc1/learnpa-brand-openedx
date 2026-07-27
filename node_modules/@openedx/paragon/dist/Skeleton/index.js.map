@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["default","SkeletonTheme"],"sources":["../../src/Skeleton/index.tsx"],"sourcesContent":["export { default, SkeletonTheme } from 'react-loading-skeleton';\n"],"mappings":"AAAA,SAASA,OAAO,EAAEC,aAAa,QAAQ,wBAAwB","ignoreList":[]}

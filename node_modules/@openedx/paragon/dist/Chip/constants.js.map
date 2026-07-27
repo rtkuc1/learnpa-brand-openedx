@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","names":["STYLE_VARIANTS","DARK","LIGHT"],"sources":["../../src/Chip/constants.ts"],"sourcesContent":["export const STYLE_VARIANTS = {\n  DARK: 'dark',\n  LIGHT: 'light',\n} as const;\n"],"mappings":"AAAA,OAAO,MAAMA,cAAc,GAAG;EAC5BC,IAAI,EAAE,MAAM;EACZC,KAAK,EAAE;AACT,CAAU","ignoreList":[]}

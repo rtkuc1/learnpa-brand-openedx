@@ -1,0 +1,9 @@
+.pgn__hyperlink {
+  display: inline-flex;
+  align-items: center;
+  text-align: start;
+
+  &__external-icon {
+    margin-inline-start: var(--pgn-spacing-spacer-2);
+  }
+}

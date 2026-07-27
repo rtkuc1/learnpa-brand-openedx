@@ -1,0 +1,22 @@
+.toast-container {
+  bottom: var(--pgn-spacing-toast-container-gutter-lg);
+  left: var(--pgn-spacing-toast-container-gutter-lg);
+  position: fixed;
+  z-index: 2;
+
+  [dir="rtl"] & {
+    right: var(--pgn-spacing-toast-container-gutter-lg);
+    left: 0;
+  }
+
+  @media (--pgn-size-breakpoint-max-width-sm) {
+    bottom: var(--pgn-spacing-toast-container-gutter-sm);
+    right: var(--pgn-spacing-toast-container-gutter-sm);
+    left: var(--pgn-spacing-toast-container-gutter-sm);
+
+    [dir="rtl"] & {
+      left: var(--pgn-spacing-toast-container-gutter-sm);
+      right: var(--pgn-spacing-toast-container-gutter-sm);
+    }
+  }
+}

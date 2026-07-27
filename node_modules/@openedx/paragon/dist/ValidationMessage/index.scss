@@ -1,0 +1,7 @@
+.form-control.is-invalid ~ .invalid-feedback-nodanger {
+  color: var(--pgn-color-body-base);
+}
+
+.fa-icon-spacing {
+  padding: 0 5px 0 0;
+}

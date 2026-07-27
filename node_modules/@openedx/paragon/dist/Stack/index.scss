@@ -1,0 +1,31 @@
+.pgn__vstack,
+.pgn__hstack {
+  display: flex;
+  align-self: stretch;
+  gap: var(--pgn-size-stack-gap);
+
+  @each $level, $space in $spacers {
+    &.pgn__stack-gap--#{$level} {
+      gap: $space;
+    }
+  }
+}
+
+.pgn__vstack {
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  &.pgn__stack-reversed {
+    flex-direction: column-reverse;
+  }
+}
+
+.pgn__hstack {
+  flex-direction: row;
+  align-items: center;
+
+  &.pgn__stack-reversed {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}

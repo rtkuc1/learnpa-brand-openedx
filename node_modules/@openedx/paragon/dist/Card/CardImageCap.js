@@ -1,0 +1,133 @@
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Skeleton from 'react-loading-skeleton';
+import CardContext from './CardContext';
+import { cardSrcFallbackImg } from './CardFallbackDefaultImage';
+const SKELETON_HEIGHT_VALUE = 140;
+const LOGO_SKELETON_HEIGHT_VALUE = 41;
+const CardImageCap = /*#__PURE__*/React.forwardRef(({
+  src,
+  fallbackSrc,
+  srcAlt,
+  logoSrc,
+  fallbackLogoSrc,
+  logoAlt,
+  skeletonHeight,
+  skeletonWidth,
+  logoSkeleton,
+  logoSkeletonHeight,
+  logoSkeletonWidth,
+  className,
+  imageLoadingType,
+  skeletonDuringImageLoad
+}, ref) => {
+  const {
+    orientation,
+    isLoading
+  } = useContext(CardContext);
+  const [showImageCap, setShowImageCap] = useState(false);
+  const [showLogoCap, setShowLogoCap] = useState(false);
+  const wrapperClassName = `pgn__card-wrapper-image-cap ${orientation}`;
+  const loadingSkeleton = () => /*#__PURE__*/React.createElement(Skeleton, {
+    containerClassName: "pgn__card-image-cap-loader",
+    height: orientation === 'horizontal' ? '100%' : skeletonHeight,
+    width: skeletonWidth
+  });
+  const loadingLogoSkeleton = () => /*#__PURE__*/React.createElement(Skeleton, {
+    containerClassName: "pgn__card-logo-cap",
+    height: logoSkeletonHeight,
+    width: logoSkeletonWidth
+  });
+  if (isLoading) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: classNames(wrapperClassName, className),
+      "data-testid": "image-loader-wrapper"
+    }, loadingSkeleton(), logoSkeleton && loadingLogoSkeleton());
+  }
+  const handleSrcFallback = (event, altSrc, imageKey) => {
+    const {
+      currentTarget
+    } = event;
+    if (!altSrc || currentTarget.src.endsWith(altSrc)) {
+      if (imageKey === 'imageCap') {
+        currentTarget.src = cardSrcFallbackImg;
+      } else {
+        setShowLogoCap(false);
+      }
+      return;
+    }
+    currentTarget.src = altSrc;
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: classNames(className, wrapperClassName),
+    ref: ref
+  }, !!src && /*#__PURE__*/React.createElement(React.Fragment, null, skeletonDuringImageLoad && !showImageCap && loadingSkeleton(), /*#__PURE__*/React.createElement("img", {
+    className: classNames('pgn__card-image-cap', {
+      show: showImageCap
+    }),
+    src: src,
+    onError: event => handleSrcFallback(event, fallbackSrc, 'imageCap'),
+    onLoad: () => setShowImageCap(true),
+    alt: srcAlt,
+    loading: imageLoadingType
+  })), !!logoSrc && /*#__PURE__*/React.createElement(React.Fragment, null, skeletonDuringImageLoad && !showLogoCap && loadingLogoSkeleton(), /*#__PURE__*/React.createElement("img", {
+    className: classNames('pgn__card-logo-cap', {
+      show: showLogoCap
+    }),
+    src: logoSrc,
+    onError: event => handleSrcFallback(event, fallbackLogoSrc, 'logoCap'),
+    onLoad: () => setShowLogoCap(true),
+    alt: logoAlt,
+    loading: imageLoadingType
+  })));
+});
+CardImageCap.propTypes = {
+  /** Specifies class name to append to the base element. */
+  className: PropTypes.string,
+  /** Specifies image src. */
+  src: PropTypes.string,
+  /** Specifies fallback image src. */
+  fallbackSrc: PropTypes.string,
+  /** Specifies image alt text. */
+  srcAlt: PropTypes.string,
+  /** Specifies logo src to put on top of the image. */
+  logoSrc: PropTypes.string,
+  /** Specifies fallback image logo src. */
+  fallbackLogoSrc: PropTypes.string,
+  /** Specifies logo image alt text. */
+  logoAlt: PropTypes.string,
+  /** Specifies height of Image skeleton in loading state. */
+  skeletonHeight: PropTypes.number,
+  /** Specifies width of Image skeleton in loading state. */
+  skeletonWidth: PropTypes.number,
+  /** Specifies whether the cap should be displayed during loading. */
+  logoSkeleton: PropTypes.bool,
+  /** Specifies height of Logo skeleton in loading state. */
+  logoSkeletonHeight: PropTypes.number,
+  /** Specifies width of Logo skeleton in loading state. */
+  logoSkeletonWidth: PropTypes.number,
+  /** Specifies loading type for images */
+  imageLoadingType: PropTypes.oneOf(['eager', 'lazy']),
+  /** Render the loading skeleton when the image is loading in
+   *  addition to when the whole card is in `isLoading` state */
+  skeletonDuringImageLoad: PropTypes.bool
+};
+CardImageCap.defaultProps = {
+  src: undefined,
+  fallbackSrc: cardSrcFallbackImg,
+  logoSrc: undefined,
+  fallbackLogoSrc: undefined,
+  className: undefined,
+  srcAlt: undefined,
+  logoAlt: undefined,
+  skeletonHeight: SKELETON_HEIGHT_VALUE,
+  logoSkeleton: false,
+  logoSkeletonHeight: LOGO_SKELETON_HEIGHT_VALUE,
+  skeletonWidth: undefined,
+  logoSkeletonWidth: undefined,
+  imageLoadingType: 'eager',
+  skeletonDuringImageLoad: false
+};
+export default CardImageCap;
+//# sourceMappingURL=CardImageCap.js.map
