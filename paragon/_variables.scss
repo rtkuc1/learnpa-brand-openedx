@@ -1,3 +1,14 @@
+// Legacy SCSS variable overrides
+$primary: #fd7e14 !default;
+$brand-primary: #fd7e14 !default;
+
+// Modern Paragon CSS Design Tokens
+:root {
+  --pgn-color-primary-500: #fd7e14;
+  --pgn-color-brand-primary-500: #fd7e14;
+  --pgn-color-primary-base: #fd7e14;
+}
+
+// Your existing dark theme toggles
 $dark-theme-switch-bg-color: #ccc;
-// for toggle theme button
 $page-color-transition: transparent .2s ease, color .2s ease;

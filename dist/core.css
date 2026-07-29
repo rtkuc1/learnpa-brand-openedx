@@ -939,6 +939,9 @@
     var(--pgn-elevation-box-shadow-centered-5-2-offset-y)
     var(--pgn-elevation-box-shadow-centered-5-2-blur)
     var(--pgn-elevation-box-shadow-centered-5-2-color);
+  --pgn-color-primary-500: #fd7e14;
+  --pgn-color-brand-primary-500: #fd7e14;
+  --pgn-color-primary-base: #fd7e14;
 }
 /**
  * Do not edit directly, this file was auto-generated.
